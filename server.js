@@ -1,24 +1,28 @@
-import express from 'express'
+import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/config.js';
 import router from './routes/index.js';
 
 dotenv.config();
 
-const app = express()
-const PORT = process.env.PORT
+const app = express();
+const PORT = process.env.PORT ;
 
 
 app.use(express.json());
-app.use('/api/v1' , router)
+app.use('/api/v1' , router);
 
-// app.get('/',(req, res)=>{
-    
-//    res.send("Server running!");
+// app.get("/", (req, res) => {
+//   res.send("Server is running");
 // });
 
-connectDB().then(()=>{
-  app.listen(PORT , ()=>{
-    console.log(`Server started on port${PORT}`);
-});
-});
+
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server started on port: ${PORT}`); // Yahan colon lagaya taake saaf dikhe
+    });
+  })
+  .catch((err) => {
+    console.log("Database connection failed!", err);
+  });

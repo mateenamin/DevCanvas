@@ -1,4 +1,6 @@
-import mongoose, { connect } from "mongoose";
+import mongoose from "mongoose";
+import dns from "dns";
+dns.setServers(["8.8.8.8", "1.1.1.1"]); // Yeh line aapke internet ke block ko bypass karegi
 
 
 const connectDB = async () => {
@@ -9,7 +11,6 @@ const connectDB = async () => {
     }
     catch (err){
                 console.log("DB Connection Error: ", err.message);
-
 
     }
 
