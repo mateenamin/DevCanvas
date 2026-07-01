@@ -150,3 +150,41 @@ export const loginUser = async (req , res ) =>{
 // Hamein login ke waqt user ko ek khufia pass/token dena parega. 
 // Jab bhi user koi naya page kholega, woh yeh pass backend ko dikhayega, 
 // aur backend use entry de dega.
+
+
+
+export const getProfile = async (req , res) => {
+     
+  try {
+          console.log("Middleware se aane wali ID:", req.userId);
+     // req.userId hume middleware ne di thi
+        const user = await User.findById(req.userId).select("-password");
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Frontend ko user ka data bhej do
+        res.json(user);
+
+  }
+  catch (error) {
+        console.log("Error in profile controller: ", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+
+}
+
+
+// Logout Controller
+export const logout = async (req, res) => {
+    try {
+        // Agar hum cookies use kar rahe hote toh yahan cookie clear karte:
+        // res.clearCookie("jwt");
+        
+        return res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.log("Error in logout controller: ", error.message);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};

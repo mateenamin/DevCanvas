@@ -30,7 +30,7 @@ const protectRoute = async (req, res, next) => {
         }
 
         // 3. User ki id ko request (req) me attach karna taake aage use ho sake
-        req.userId = decoded.userId;
+        req.userId = decoded.id;
 
         // Sab theek hai, ab agle function (controller) par jao
         next();
